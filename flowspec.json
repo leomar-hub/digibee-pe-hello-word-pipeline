@@ -1,0 +1,132 @@
+{
+  "start": [
+    {
+      "type": "choice",
+      "stepName": "Choice",
+      "when": [
+        {
+          "target": "post #E9b36j#",
+          "jsonPath": "$.[?(@.method == 'POST')]"
+        },
+        {
+          "target": "get #3ou862#",
+          "jsonPath": "$.[?(@.method == 'GET')]"
+        }
+      ],
+      "otherwise": "ignore #uP92ZC#",
+      "onProcessTrack": null,
+      "onExceptionTrack": null,
+      "id": "961f7318-7254-4502-b6ef-118d82f3867e"
+    }
+  ],
+  "post #E9b36j#": [
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "INFO",
+        "message": "POST"
+      },
+      "onProcessTrack": null,
+      "onExceptionTrack": null,
+      "id": "bcbc3d86-4d5a-412d-8d48-8400fd5305fc"
+    },
+    {
+      "name": "json-generator-connector",
+      "type": "connector",
+      "stepName": "post",
+      "params": {
+        "json": "{}",
+        "failOnError": false
+      },
+      "onProcessTrack": null,
+      "onExceptionTrack": null,
+      "id": "e4015112-4c3b-4e68-894c-23230e75105d"
+    },
+    {
+      "params": {
+        "operation": "INSERT",
+        "objectStore": "persons",
+        "document": "",
+        "unique": true,
+        "isolated": false,
+        "upsert": false,
+        "failOnError": false
+      },
+      "accountLabel": "dgb-internal-object-store-account",
+      "name": "object-store-connector",
+      "stepName": "insert client",
+      "type": "connector",
+      "onExceptionTrack": null,
+      "onProcessTrack": null,
+      "id": "dc44ea14-34cd-4015-bb86-53b4129013e9"
+    }
+  ],
+  "get #3ou862#": [
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "INFO",
+        "message": "GET"
+      },
+      "onProcessTrack": null,
+      "onExceptionTrack": null,
+      "id": "0723b62d-3aaa-4373-b684-f415f6c038d2"
+    },
+    {
+      "params": {
+        "objectStore": "persons",
+        "operation": "FIND_BY_QUERY",
+        "query": "{}",
+        "failOnError": false,
+        "upsert": false,
+        "unique": true,
+        "isolated": false,
+        "document": "",
+        "sort": ""
+      },
+      "accountLabel": "dgb-internal-object-store-account",
+      "name": "object-store-connector",
+      "stepName": "find client",
+      "type": "connector",
+      "onExceptionTrack": null,
+      "onProcessTrack": null,
+      "id": "50862347-29d8-4b17-8592-984a20c0fcaa"
+    },
+    {
+      "type": "connector",
+      "name": "ftp-connector",
+      "stepName": "FTP",
+      "accountLabel": "",
+      "params": {
+        "host": "ftp.server.com.br",
+        "port": 21,
+        "fileName": "local-test.pdf",
+        "remoteFileName": "test.pdf",
+        "remoteDirectory": "folder",
+        "ftpOperation": "STOR",
+        "failOnError": false,
+        "isBinary": true,
+        "remoteVerification": true
+      },
+      "id": "471e044b-b68d-4486-98ff-1d81f3d54011"
+    }
+  ],
+  "ignore #uP92ZC#": [
+    {
+      "type": "connector",
+      "name": "log-connector",
+      "stepName": "Log",
+      "params": {
+        "logLevel": "INFO",
+        "message": "IGNORE"
+      },
+      "onProcessTrack": null,
+      "onExceptionTrack": null,
+      "id": "a0113f5f-67d4-4f14-9002-6553692b9dc3"
+    }
+  ]
+}
