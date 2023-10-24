@@ -95,6 +95,24 @@
       "onExceptionTrack": null,
       "onProcessTrack": null,
       "id": "50862347-29d8-4b17-8592-984a20c0fcaa"
+    },
+    {
+      "type": "connector",
+      "name": "ftp-connector",
+      "stepName": "FTP",
+      "accountLabel": "",
+      "params": {
+        "host": "ftp.server.com.br",
+        "port": 21,
+        "fileName": "local-test.pdf",
+        "remoteFileName": "test.pdf",
+        "remoteDirectory": "folder",
+        "ftpOperation": "STOR",
+        "failOnError": false,
+        "isBinary": true,
+        "remoteVerification": true
+      },
+      "id": "471e044b-b68d-4486-98ff-1d81f3d54011"
     }
   ],
   "ignore #uP92ZC#": [
